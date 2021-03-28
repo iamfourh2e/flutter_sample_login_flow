@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:myapp/bloc/app_bloc.dart';
 
 class LoadingResource extends StatefulWidget {
@@ -26,7 +27,12 @@ class _LoadingResourceState extends State<LoadingResource> {
     //check resource
     Future.delayed(Duration(milliseconds: 2000), () {
       //add or publish an event
-      widget.appBloc.subjectToken.add(null);
+      // Hive.deleteBoxFromDisk('app');
+      Hive.openBox('app')
+          .then((value)  {
+            String token = value.get('token');
+            widget.appBloc.subjectToken.add(token);
+      });
     });
   }
 }

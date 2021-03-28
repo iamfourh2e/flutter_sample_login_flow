@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:myapp/bloc/app_bloc.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +12,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Box box;
+
+  initBox() async {
+    box = await Hive.openBox('app');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +32,7 @@ class _LoginState extends State<Login> {
         child: Text("Login"),
         onPressed: () {
           widget.appBloc.subjectToken.add("123123123");
+          box.put('token', "123123123");
         },
       ),
       body: Center(
