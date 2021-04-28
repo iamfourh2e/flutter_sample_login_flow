@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/bloc/app_bloc.dart';
+import 'package:eis_owner/bloc/app_bloc.dart';
 
 import 'explore.dart';
 import 'loading_resource.dart';
@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: StreamBuilder( // subscriber
         initialData: null,
-        stream: appBloc.subjectToken,
+        stream: appBloc.subjectUser,
         builder: (context, AsyncSnapshot snapShot) {
           if(snapShot.connectionState == ConnectionState.waiting) {
             return LoadingResource(
